@@ -490,4 +490,70 @@ footer {
     color: #000;         /* שחור מלא ובולט */
     opacity: 1;
 }
+/* --- תיקונים לסקשן החבילה והכפתורים --- */
+
+/* 1. הגדרה קריטית לסקשן האב כדי שהכפתורים לא יעלמו */
+#pack {
+    position: relative; 
+    margin-bottom: 80px; /* רווח גדול למטה כדי שהכפתורים לא יעלו על הטקסט של הסקשן הבא */
+    z-index: 10; /* מוודא שהסקשן הזה והכפתורים שלו יהיו מעל האלמנטים הבאים */
+}
+
+/* 2. מיקום הכפתורים על הגבול */
+.overlapping-buttons {
+    position: absolute;
+    bottom: 0;           /* נצמד לקו התחתון של הסקשן */
+    left: 50%;           /* מתמקם באמצע הרוחב */
+    transform: translate(-50%, 50%); /* זז 50% שמאלה (למרכוז) ו-50% למטה (כדי להיות חצי בחוץ) */
+    
+    display: flex;       /* מסדר את הכפתורים בשורה */
+    gap: 20px;           /* רווח בין הכפתורים */
+    width: 100%;         /* רוחב מלא */
+    justify-content: center; /* מרכוז הכפתורים בתוך הדיב */
+    z-index: 20;         /* מוודא שהם הכי עליונים */
+}
+
+/* 3. וידוא שהכפתורים נראים טוב (תיקון השיבוש) */
+.overlapping-buttons .cta-main {
+    width: 220px;        /* 1. הגדרת רוחב קבוע ואחיד לשני הכפתורים */
+    text-align: center;  /* 2. מרכוז הטקסט בתוך הכפתור */
+    padding: 1rem 0;     /* 3. ריפוד רק מלמעלה ולמטה (הרוחב קבוע אז לא צריך ריפוד בצדדים) */
+    
+    /* הגדרות עיצוב קיימות שלך */
+    margin: 0;
+    background-color: var(--primary-color);
+    border: 2px solid var(--white);
+    display: inline-flex; /* עוזר למרכז את הטקסט */
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap; /* מוודא שהטקסט לא יישבר לשתי שורות */
+}
+
+/* במובייל - נקטין קצת כדי שייכנסו במסך או נשאיר גמיש */
+@media (max-width: 768px) {
+    .overlapping-buttons .cta-main {
+        width: 45%; /* במובייל כל כפתור יתפוס קצת פחות מחצי מסך */
+        font-size: 0.9rem;
+        padding: 0.8rem 0;
+    }
+}
+
+.overlapping-buttons .cta-main:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-3px); /* אפקט ריחוף */
+}
+
+/* התאמה למובייל */
+@media (max-width: 768px) {
+    .overlapping-buttons {
+        gap: 10px;
+        width: 90%; /* שלא יחרגו מהמסך */
+    }
+    
+    .overlapping-buttons .cta-main {
+        font-size: 1rem; /* טקסט קצת יותר קטן במובייל */
+        padding: 0.8rem 1.5rem;
+        min-width: auto;
+    }
+}
 
