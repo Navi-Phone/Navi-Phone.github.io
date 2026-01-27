@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>רשימת משווקים</title>
+    <link rel="icon" href="./images/favicon.png" type="image/jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Rubik', sans-serif; 
+            margin: 20px; 
+            background: #f0f2f5; 
+        }
+        
+        .table-wrap { 
+            background: white; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            min-width: 600px; 
+        }
+        
+        th { 
+            background: #0f9d58; 
+            color: white; 
+            padding: 15px; 
+            text-align: right; 
+            border: 1px solid #0b8048; 
+            font-weight: 500;
+        }
+        
+        td { 
+            padding: 12px 15px; 
+            color: #333; 
+            border: 1px solid #ddd; 
+        }
+        
+        tr:hover { 
+            background-color: #f8f9fa; 
+        }
+        
+        #status { 
+            font-weight: bold; 
+            color: #666; 
+            text-align: center; 
+            margin-top: 20px; 
+        }
+
+        /* עיצוב חדש לשורת הטקסט התחתונה */
+        .footer-msg {
+            text-align: center; /* ממקם באמצע */
+            padding: 20px;      /* מרווח פנימי */
+            font-weight: bold;
+            background-color: #fafafa; /* צבע רקע טיפה שונה להדגשה */
+            border-top: 2px solid #eee; /* קו הפרדה עדין מהטבלה */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="status">טוען נתונים...</div>
+    
+    <div class="table-wrap" style="display:none;" id="tableDiv">
+        <table id="myTable">
+            <thead><tr id="headRow"></tr></thead>
+            <tbody id="bodyRows"></tbody>
+        </table>
+        
+        <!-- הטקסט הועבר לכאן, לתוך הקופסה של הטבלה -->
+        <div class="footer-msg">
+            אין סוכן באיזורך ואתה מעוניין לרכוש מכשיר? צור קשר: 053-945-5166
+        </div>
+    </div>
+
+    <script>
+        window.processData = function(json) {
+            try {
+                const table = json.table;
+                let rows = table.rows; 
+
+                const headRow = document.getElementById('headRow');
+                const bodyRows = document.getElementById('bodyRows');
+
+                if (rows.length > 0) {
+                    const firstRow = rows.shift(); 
+                    if (firstRow.c) {
+                        firstRow.c.forEach(cell => {
+                            const th = document.createElement('th');
+                            th.textContent = (cell && cell.v !== null) ? cell.v : '';
+                            headRow.appendChild(th);
+                        });
+                    }
+                }
+
+                rows.forEach(row => {
+                    const tr = document.createElement('tr');
+                    const cells = row.c; 
+                    if (cells) {
+                        cells.forEach(cell => {
+                            const td = document.createElement('td');
+                            const val = (cell && cell.f) ? cell.f : (cell && cell.v !== null ? cell.v : '');
+                            td.textContent = val;
+                            tr.appendChild(td);
+                        });
+                        bodyRows.appendChild(tr);
+                    }
+                });
+
+                document.getElementById('status').style.display = 'none';
+                document.getElementById('tableDiv').style.display = 'block';
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById('status').innerText = 'שגיאה בפענוח הנתונים';
+                document.getElementById('status').style.color = 'red';
+            }
+        };
+    </script>
+
+    <script src="https://docs.google.com/spreadsheets/d/1dem9fGJGZG6muNiUbEyfqc6Ebqoi8eBp4xVqM3FtXnA/gviz/tq?tqx=responseHandler:processData"></script>
+
+</body>
+</html>
