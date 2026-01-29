@@ -1,0 +1,178 @@
+/* Privacy Consent Banner - CSS (FIXED VERSION v2) */
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&display=swap');
+
+:root {
+  --ac-bg: #fff;
+  --ac-fg: #0f172a;
+  --ac-primary: #2563eb;
+  --ac-radius: 14px;
+  --ac-shadow: 0 10px 30px rgba(2, 6, 23, .15);
+  --ac-font: 'Assistant', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* מיכל הבאנר – לא תופס את כל המסך ולא חוסם קליקים */
+#acb-consent {
+  position: fixed;
+  z-index: 999999;
+  display: none;
+}
+
+/* דסקטופ: בפינה ימין-תחתון */
+@media (min-width: 769px) {
+  #acb-consent {
+    right: 20px;
+    bottom: 20px;
+  }
+  .acb-card {
+    width: 360px;
+    max-width: calc(100vw - 40px);
+    border-radius: var(--ac-radius);
+  }
+}
+
+/* מובייל: פס תחתון רוחב מלא */
+@media (max-width: 768px) {
+  #acb-consent {
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .acb-card {
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: 16px 16px 0 0;
+  }
+}
+
+.acb-card {
+  box-sizing: border-box;
+  background: var(--ac-bg);
+  color: var(--ac-fg);
+  box-shadow: var(--ac-shadow);
+  padding: 16px 18px;
+  direction: rtl !important;
+  font-family: var(--ac-font);
+}
+
+.acb-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: right;
+  direction: rtl;
+}
+
+.acb-text {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: right;
+  direction: rtl;
+}
+
+.acb-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  direction: rtl !important;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.acb-btn {
+  appearance: none;
+  cursor: pointer;
+  font-family: var(--ac-font);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 11px 22px;
+  border-radius: 25px;  /* עגול יותר! */
+  border: 2px solid #d0d6e3;
+  background: #fff;
+  color: #0f172a;
+  transition: all 0.2s ease;
+  direction: rtl;
+  text-align: center;
+  min-width: 110px;
+  white-space: nowrap;
+}
+
+.acb-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+.acb-btn.primary {
+  background: var(--ac-primary);
+  color: #fff;
+  border-color: var(--ac-primary);
+}
+
+.acb-btn.primary:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+}
+
+.acb-btn.secondary {
+  color: var(--ac-primary);
+  border-color: var(--ac-primary);
+  background: #fff;
+}
+
+.acb-btn.secondary:hover {
+  background: #eff6ff;
+  border-color: #1d4ed8;
+}
+
+.acb-note {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #6b7280;
+  text-align: right;
+  direction: rtl;
+  line-height: 1.5;
+}
+
+.acb-privacy-link {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 11px;
+  color: #9ca3af;
+  text-align: right;
+  line-height: 1.5;
+  direction: rtl;
+}
+
+.acb-privacy-link a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.acb-privacy-link a:hover {
+  text-decoration: underline;
+}
+
+/* אנימציה כשהבאנר מופיע */
+#acb-consent.show {
+  display: block;
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* שיפורים נוספים */
+.acb-card * {
+  box-sizing: border-box;
+}
