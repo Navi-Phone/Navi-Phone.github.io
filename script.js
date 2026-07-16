@@ -53,38 +53,5 @@ function showSlides(n) {
         dots[slideIndex-1].className += " active-dot";
     }
 }
-// --- לוגיקת פופ-אפ מלאי אזל ---
-document.addEventListener('DOMContentLoaded', () => {
-    const checkoutBtns = document.querySelectorAll('.checkout-btn');
-    const stockModal = document.getElementById('stock-modal');
-    const closeX = document.querySelector('.modal-close');
-    const closeBtn = document.getElementById('modal-close-btn');
-
-    // פתיחת הפופ-אפ לכל הכפתורים
-    if (checkoutBtns.length > 0 && stockModal) {
-        checkoutBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                stockModal.classList.add('active');
-            });
-        });
-    }
-
-    // פונקציית סגירה
-    const closeModal = () => {
-        stockModal.classList.remove('active');
-    };
-
-    // סגירה בלחיצה על ה-X או על כפתור הסגירה
-    closeX?.addEventListener('click', closeModal);
-    closeBtn?.addEventListener('click', closeModal);
-
-    // סגירה בלחיצה מחוץ לכרטיס (על הרקע הכהה)
-    stockModal?.addEventListener('click', (e) => {
-        if (e.target === stockModal) {
-            closeModal();
-        }
-    });
-});
 // הפעלה ראשונית למקרה שחלק מהאלמנטים כבר נראים בעת הטעינה
 reveal();
